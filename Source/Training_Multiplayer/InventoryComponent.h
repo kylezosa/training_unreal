@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "Components/ActorComponent.h"
+#include "ItemStructs.h"
 #include "InventoryComponent.generated.h"
 
 // Foward Declarations
@@ -25,7 +26,7 @@ public:
 	int32 Capacity{50};
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Inventory")
-	TArray<class UItemDataInstance*> Items;
+	TArray<FItemDataInstance> Items;
 
 	UPROPERTY(BlueprintAssignable, Category = "Inventory")
 	FOnInventoryUpdate OnInventoryUpdate;
@@ -34,10 +35,10 @@ public:
 	bool IsFull();
 
 	UFUNCTION(BlueprintCallable, Category = "Inventory")
-	bool AddItem(class UItemDataInstance* ItemToAdd);
+	bool AddItem(FItemDataInstance ItemToAdd);
 
 	UFUNCTION(BlueprintCallable, Category = "Inventory")
-	bool RemoveItem(class UItemDataInstance* ItemToRemove);
+	bool RemoveItem(FItemDataInstance ItemToRemove);
 
 	//UFUNCTION(BlueprintCallable, Category = "Inventory")
 	//void UseItem(class UItemDataInstance* ItemToUse, class ABasicCharacter* User);
@@ -46,8 +47,8 @@ public:
 	//void DropItem(class UItemDataInstance* ItemToDrop, class ABasicCharacter* Dropper);
 
 	UFUNCTION(BlueprintCallable, Category = "Inventory")
-	TArray<class UItemDataInstance*> AddItems(TArray<class UItemDataInstance*> ItemsToAdd);
+	TArray<FItemDataInstance> AddItems(TArray<FItemDataInstance> ItemsToAdd);
 
 	UFUNCTION(BlueprintCallable, Category = "Inventory")
-	TArray<class UItemDataInstance*> RemoveItems(TArray<class UItemDataInstance*> ItemsToRemove);
+	TArray<FItemDataInstance> RemoveItems(TArray<FItemDataInstance> ItemsToRemove);
 };

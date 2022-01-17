@@ -5,39 +5,7 @@
 #include "CoreMinimal.h"
 #include "Components/ActorComponent.h"
 #include "Components/SphereComponent.h"
-
-#include "UObject/Interface.h"
-
 #include "LooterComponent.generated.h"
-
-// DROPPABLE INTERFACE
-UINTERFACE(MinimalAPI)
-class UDroppableInterface : public UInterface
-{
-	GENERATED_BODY()
-};
-
-class TRAINING_MULTIPLAYER_API IDroppableInterface
-{
-	GENERATED_BODY()
-public:
-};
-
-// LOOTABLE INTERFACE
-UINTERFACE(MinimalAPI, Blueprintable)
-class ULootableInterface : public UInterface
-{
-	GENERATED_BODY()
-};
-
-class TRAINING_MULTIPLAYER_API ILootableInterface
-{
-	GENERATED_BODY()
-public:
-
-	UFUNCTION(BlueprintCallable, BlueprintNativeEvent, Category = "Lootable")
-	bool IsLootable();
-};
 
 
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )

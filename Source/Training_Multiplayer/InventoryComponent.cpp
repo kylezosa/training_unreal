@@ -2,9 +2,7 @@
 
 
 #include "InventoryComponent.h"
-#include "ItemDataInstance.h"
 #include "ItemDataAsset.h"
-#include "ItemObject.h"
 #include "Net/UnrealNetwork.h"
 
 // Sets default values for this component's properties
@@ -43,9 +41,9 @@ bool UInventoryComponent::IsFull()
 	return Items.Num() >= Capacity;
 }
 
-bool UInventoryComponent::AddItem(class UItemDataInstance* ItemToAdd)
+bool UInventoryComponent::AddItem(FItemDataInstance ItemToAdd)
 {
-	if (!ItemToAdd)
+	if (!ItemToAdd.IsValid())
 	{
 		UE_LOG(LogTemp, Warning, TEXT("Inventory > Add Item > Item is Invalid"));
 		return false;
@@ -57,21 +55,6 @@ bool UInventoryComponent::AddItem(class UItemDataInstance* ItemToAdd)
 	}
 	else
 	{
-		if (ItemToAdd->ItemDataAsset)
-		{
-			UE_LOG(LogTemp, Log, TEXT("Inventory > Add Item > Attempting to add %s"), *ItemToAdd->ItemDataAsset->Name.ToString());
-		}
-		else
-		{
-			UE_LOG(LogTemp, Log, TEXT("Inventory > Add Item > Item Data Asset NOT FOUND."));
-		}
-
-		// Change Outer to owner of inventory.
-		if (GetOwner())
-		{
-			ItemToAdd->Rename(nullptr, GetOwner()->GetOuter(), REN_None);
-		}
-
 		UE_LOG(LogTemp, Log, TEXT("Inventory > Add Item > Item added."));
 		Items.Add(ItemToAdd);
 		OnInventoryUpdate.Broadcast();
@@ -79,9 +62,9 @@ bool UInventoryComponent::AddItem(class UItemDataInstance* ItemToAdd)
 	}
 }
 
-bool UInventoryComponent::RemoveItem(class UItemDataInstance* ItemToRemove)
+bool UInventoryComponent::RemoveItem(FItemDataInstance ItemToRemove)
 {
-	if (!ItemToRemove)
+	if (!ItemToRemove.IsValid())
 	{
 		UE_LOG(LogTemp, Warning, TEXT("Inventory > Remove Item > Item is Invalid"));
 		return false;
@@ -100,26 +83,12 @@ bool UInventoryComponent::RemoveItem(class UItemDataInstance* ItemToRemove)
 	}
 }
 
-//void UInventoryComponent::UseItem(class UItemDataInstance* ItemToUse, class ABasicCharacter* User)
-//{
-//	ItemToUse->ItemEffects->OnUse(ItemToUse, User, this);
-//}
-//
-//void UInventoryComponent::DropItem(class UItemDataInstance* ItemToDrop, class ABasicCharacter* Dropper, FVector Location, FRotator Rotation)
-//{
-//	if (GetWorld())
-//	{
-//		GetWorld
-//		ItemToDrop->ItemEffects->OnDrop(ItemToDrop, Dropper);
-//	}
-//}
-
-TArray<class UItemDataInstance*> UInventoryComponent::AddItems(TArray<class UItemDataInstance*> ItemsToAdd)
+TArray<FItemDataInstance> UInventoryComponent::AddItems(TArray<FItemDataInstance> ItemsToAdd)
 {
-	TArray<class UItemDataInstance*> unaddedItems;
+	TArray<FItemDataInstance> unaddedItems;
 	for (int i = 0; i < ItemsToAdd.Num(); i++)
 	{
-		if (!ItemsToAdd[i])
+		if (!ItemsToAdd[i].IsValid())
 		{
 			UE_LOG(LogTemp, Warning, TEXT("Inventory > Add Items > Item %d is Invalid"), i);
 			continue;
@@ -130,12 +99,6 @@ TArray<class UItemDataInstance*> UInventoryComponent::AddItems(TArray<class UIte
 		}
 		else
 		{
-			// Change Outer to owner of inventory.
-			if (GetOwner())
-			{
-				ItemsToAdd[i]->Rename(nullptr, GetOwner()->GetOuter(), REN_None);
-			}
-
 			Items.Add(ItemsToAdd[i]);
 		}
 	}
@@ -150,13 +113,13 @@ TArray<class UItemDataInstance*> UInventoryComponent::AddItems(TArray<class UIte
 	return unaddedItems;
 }
 
-TArray<class UItemDataInstance*> UInventoryComponent::RemoveItems(TArray<class UItemDataInstance*> ItemsToRemove)
+TArray<FItemDataInstance> UInventoryComponent::RemoveItems(TArray<FItemDataInstance> ItemsToRemove)
 {
-	TArray<class UItemDataInstance*> unmovedItems;
+	TArray<FItemDataInstance> unmovedItems;
 
 	for (int i = 0; i < ItemsToRemove.Num(); i++)
 	{
-		if (!ItemsToRemove[i])
+		if (!ItemsToRemove[i].IsValid())
 		{
 			continue;
 			UE_LOG(LogTemp, Warning, TEXT("Inventory > Remove Items > Item %d is Invalid"), i);

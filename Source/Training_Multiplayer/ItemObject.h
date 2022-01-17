@@ -4,8 +4,42 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
-#include "LooterComponent.h"
+#include "ItemStructs.h"
+
+#include "UObject/Interface.h"
+
 #include "ItemObject.generated.h"
+
+
+// DROPPABLE INTERFACE
+UINTERFACE(MinimalAPI)
+class UDroppableInterface : public UInterface
+{
+	GENERATED_BODY()
+};
+
+class TRAINING_MULTIPLAYER_API IDroppableInterface
+{
+	GENERATED_BODY()
+public:
+};
+
+// LOOTABLE INTERFACE
+UINTERFACE(MinimalAPI, Blueprintable)
+class ULootableInterface : public UInterface
+{
+	GENERATED_BODY()
+};
+
+class TRAINING_MULTIPLAYER_API ILootableInterface
+{
+	GENERATED_BODY()
+public:
+
+	UFUNCTION(BlueprintCallable, BlueprintNativeEvent, Category = "Lootable")
+		bool IsLootable();
+};
+
 
 // ITEM
 UCLASS(BlueprintType)
@@ -17,8 +51,6 @@ public:
 	// Sets default values for this actor's properties
 	AItemObject();
 
-	virtual bool ReplicateSubobjects(class UActorChannel* Channel, class FOutBunch* Bunch, FReplicationFlags* RepFlags) override;
-
-	UPROPERTY(Replicated, EditAnywhere, BlueprintReadWrite, Instanced, Category = "Item|Object")
-	class UItemDataInstance* ItemDataInstance;
+	UPROPERTY(Replicated, EditAnywhere, BlueprintReadWrite, Category = "Item|Object")
+	FItemDataInstance ItemDataInstance;
 };

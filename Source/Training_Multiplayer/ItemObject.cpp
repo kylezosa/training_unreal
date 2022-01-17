@@ -14,15 +14,6 @@ AItemObject::AItemObject()
 	bReplicates = true;
 }
 
-bool AItemObject::ReplicateSubobjects(class UActorChannel* Channel, class FOutBunch* Bunch, FReplicationFlags* RepFlags)
-{
-	bool WroteSomething = Super::ReplicateSubobjects(Channel, Bunch, RepFlags);
-
-	WroteSomething |= Channel->ReplicateSubobject(ItemDataInstance, *Bunch, *RepFlags);
-
-	return WroteSomething;
-}
-
 void AItemObject::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const
 {
 	Super::GetLifetimeReplicatedProps(OutLifetimeProps);

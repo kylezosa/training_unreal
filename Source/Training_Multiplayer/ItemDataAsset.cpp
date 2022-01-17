@@ -9,20 +9,20 @@
 * UItemEffects Implementations
 **/
 
-void UItemEffects::OnLoot_Implementation(class UItemDataInstance* ItemDataInstance, class ABasicCharacter* Looter, class AItemObject* DroppedItem)
-{
-	// Trigger effects
-}
-
-void UItemEffects::OnDrop_Implementation(class UItemDataInstance* ItemDataInstance, class ABasicCharacter* Dropper, class AItemObject* DroppedItem)
-{
-	// Trigger effects
-}
-
-void UItemEffects::OnUse_Implementation(class UItemDataInstance* ItemDataInstance, class ABasicCharacter* User, class UInventoryComponent* InventoryComponent)
-{
-	// Trigger effects
-}
+//void UItemEffects::OnLoot_Implementation(class UItemDataInstance* ItemDataInstance, class ABasicCharacter* Looter, class AItemObject* DroppedItem)
+//{
+//	// Trigger effects
+//}
+//
+//void UItemEffects::OnDrop_Implementation(class UItemDataInstance* ItemDataInstance, class ABasicCharacter* Dropper, class AItemObject* DroppedItem)
+//{
+//	// Trigger effects
+//}
+//
+//void UItemEffects::OnUse_Implementation(class UItemDataInstance* ItemDataInstance, class ABasicCharacter* User, class UInventoryComponent* InventoryComponent)
+//{
+//	// Trigger effects
+//}
 
 //void UItemDataAsset::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const
 //{
